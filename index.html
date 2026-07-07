@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PERIMETER // Social Engineering Awareness Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===================== LOADER ===================== -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <div class="loader-text">INITIALIZING <span>PERIMETER</span></div>
+      <div class="loader-sub">calibrating threat models…</div>
+    </div>
+  </div>
+
+  <!-- ===================== BACKGROUND FX ===================== -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="scan-overlay" aria-hidden="true"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <button class="brand" data-nav="landing" aria-label="Go to home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path fill="currentColor"
+              d="M12 1 3 5v6c0 5.2 3.6 9.9 9 11 5.4-1.1 9-5.8 9-11V5l-9-4Zm0 2.2 7 3.1v4.7c0 4.1-2.8 7.9-7 8.9-4.2-1-7-4.8-7-8.9V6.3l7-3.1Z" />
+            <path fill="currentColor" d="m10.9 13.4-2.1-2.1-1.4 1.4 3.5 3.5 6-6-1.4-1.4-4.6 4.6Z" />
+          </svg>
+        </span>
+        <span class="brand-text">PERIMETER</span>
+      </button>
+      <div class="nav-links">
+        <button class="nav-link" data-nav="landing">Home</button>
+        <button class="nav-link" data-nav="dashboard">Simulators</button>
+        <button class="nav-link" data-nav="learning">Learning Center</button>
+        <button class="nav-link" data-nav="quiz-intro">Final Assessment</button>
+        <button class="nav-link" data-nav="analytics">Analytics</button>
+        <button class="nav-link" data-nav="settings">Settings</button>
+      </div>
+      <div class="nav-stats">
+        <div class="chip chip-xp"><span class="chip-label">XP</span><span id="nav-xp">0</span></div>
+        <div class="chip chip-level"><span class="chip-label">LVL</span><span id="nav-level">1</span></div>
+        <div class="chip chip-streak">🔥<span id="nav-streak">0</span></div>
+      </div>
+      <button class="nav-burger" id="nav-burger"
+        aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="app">
+
+    <!-- ===================== LANDING ===================== -->
+    <section class="view active" id="view-landing">
+
+      <header class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">HUMAN-LAYER SECURITY TRAINING</div>
+            <h1>The firewall doesn't stop <span class="grad-text">a good story.</span></h1>
+            <p class="hero-lede">Every breach begins with a message someone believed. PERIMETER is an offline,
+              judgment-free range where you face 20 real social engineering attack patterns — phishing to pretexting —
+              and build the instinct to pause before you click, plug in, or let someone through the door.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary btn-lg" data-nav="dashboard">Start Training <svg viewBox="0 0 24 24"
+                  width="18" height="18">
+                  <path fill="currentColor" d="M4 11h13.2l-5.6-5.6L13 4l8 8-8 8-1.4-1.4 5.6-5.6H4z" />
+                </svg></button>
+              <button class="btn btn-ghost btn-lg" data-nav="learning">Browse Learning Center</button>
+            </div>
+            <div class="hero-meta">
+              <div><strong>20</strong> attack simulators</div>
+              <div><strong>30</strong> question final exam</div>
+              <div><strong>100%</strong> offline &amp; local</div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="radar">
+              <div class="radar-sweep"></div>
+              <div class="radar-ring r1"></div>
+              <div class="radar-ring r2"></div>
+              <div class="radar-ring r3"></div>
+              <div class="radar-blip b1"></div>
+              <div class="radar-blip b2"></div>
+              <div class="radar-blip b3"></div>
+              <div class="radar-core">
+                <svg viewBox="0 0 24 24" width="30" height="30">
+                  <path fill="currentColor" d="M12 1 3 5v6c0 5.2 3.6 9.9 9 11 5.4-1.1 9-5.8 9-11V5l-9-4Z"
+                    opacity=".25" />
+                  <path fill="currentColor" d="m10.9 13.4-2.1-2.1-1.4 1.4 3.5 3.5 6-6-1.4-1.4-4.6 4.6Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats-band">
+        <div class="stat-card">
+          <div class="stat-num" data-count="98">0</div>
+          <div class="stat-pct">%</div>
+          <div class="stat-label">of breaches involve a human element, not just broken code</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="3" data-decimal="4">0</div>
+          <div class="stat-pct">B</div>
+          <div class="stat-label">phishing emails estimated to be sent every single day</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="60">0</div>
+          <div class="stat-pct">sec</div>
+          <div class="stat-label">is often all it takes for a tailored pretext to earn trust</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="20">0</div>
+          <div class="stat-pct">x</div>
+          <div class="stat-label">attack patterns you'll rehearse across this simulator</div>
+        </div>
+      </section>
+
+      <section class="why-section">
+        <div class="section-head">
+          <div class="eyebrow">WHY IT MATTERS</div>
+          <h2>Attackers don't break in. They get let in.</h2>
+        </div>
+        <div class="why-grid">
+          <article class="why-card">
+            <div class="why-icon">✉️</div>
+            <h3>Email is the front door</h3>
+            <p>Phishing, spear phishing and BEC remain the cheapest, highest-yield way to get a foothold — no exploit
+              required, just a convincing sender and a sense of urgency.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">🏢</div>
+            <h3>Buildings have people, not just badges</h3>
+            <p>Tailgating, piggybacking and impersonation exploit politeness and hierarchy — the instinct to hold a door
+              or trust a lanyard.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">📱</div>
+            <h3>The attack surface fits in a pocket</h3>
+            <p>Smishing, vishing and QR-code lures move the con onto the device you trust most and check most often.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">🧠</div>
+            <h3>Awareness is a trained reflex</h3>
+            <p>Like any skill, spotting manipulation improves with repetition and feedback — which is exactly what a
+              simulator can safely provide.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-brand">PERIMETER</div>
+          <p>An offline, fictional awareness-training simulator. No real credentials, sites, or people are involved.
+            Built for education, not deception.</p>
+          <div class="footer-links">
+            <button data-nav="dashboard">Simulators</button>
+            <button data-nav="learning">Learning Center</button>
+            <button data-nav="quiz-intro">Final Assessment</button>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ===================== DASHBOARD ===================== -->
+    <section class="view" id="view-dashboard">
+      <div class="page-head">
+        <div class="eyebrow">SIMULATOR DASHBOARD</div>
+        <h2>Choose an attack pattern to rehearse</h2>
+        <p class="page-sub">Every card is a short, scored scenario set with instant explanations. Complete them all to
+          unlock the final assessment with confidence.</p>
+      </div>
+      <div class="dash-toolbar">
+        <div class="filter-group" id="risk-filters">
+          <button class="filter-chip active" data-risk="all">All</button>
+          <button class="filter-chip" data-risk="Low">Low risk</button>
+          <button class="filter-chip" data-risk="Medium">Medium risk</button>
+          <button class="filter-chip" data-risk="High">High risk</button>
+          <button class="filter-chip" data-risk="Critical">Critical</button>
+        </div>
+        <div class="dash-progress">
+          <span id="dash-progress-label">0 / 20 modules complete</span>
+          <div class="progress-track">
+            <div class="progress-fill" id="dash-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="module-grid" id="module-grid"></div>
+    </section>
+
+    <!-- ===================== SIMULATOR PLAYER ===================== -->
+    <section class="view" id="view-sim">
+      <div class="sim-shell">
+        <div class="sim-header">
+          <button class="btn btn-ghost btn-sm" data-nav="dashboard">← Back to dashboard</button>
+          <div class="sim-title-wrap">
+            <span class="sim-icon" id="sim-icon">🛡️</span>
+            <div>
+              <h2 id="sim-title">Module</h2>
+              <div class="sim-tags"><span id="sim-difficulty" class="tag">Difficulty</span><span id="sim-risk"
+                  class="tag">Risk</span></div>
+            </div>
+          </div>
+          <div class="sim-score">
+            Score <strong id="sim-score">0</strong>/<span id="sim-total">0</span>
+          </div>
+        </div>
+        <div class="progress-track sim-progress">
+          <div class="progress-fill" id="sim-progress-fill"></div>
+        </div>
+
+        <div class="sim-body" id="sim-body">
+          <!-- scenario content injected here -->
+        </div>
+
+        <div class="sim-footer">
+          <div class="tip-box" id="sim-tip" hidden></div>
+          <div class="sim-actions">
+            <button class="btn btn-ghost" id="sim-restart">Restart Module</button>
+            <button class="btn btn-primary" id="sim-next" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODULE SUMMARY ===================== -->
+    <section class="view" id="view-summary">
+      <div class="summary-card">
+        <div class="summary-icon" id="summary-icon">🎯</div>
+        <div class="eyebrow">MODULE COMPLETE</div>
+        <h2 id="summary-title">Phishing Email Simulator</h2>
+        <div class="summary-score-ring">
+          <svg viewBox="0 0 120 120" width="140" height="140">
+            <circle cx="60" cy="60" r="52" class="ring-bg" />
+            <circle cx="60" cy="60" r="52" class="ring-fg" id="summary-ring" />
+          </svg>
+          <div class="summary-pct" id="summary-pct">0%</div>
+        </div>
+        <p class="summary-detail" id="summary-detail">You answered 0 of 0 correctly.</p>
+        <div class="summary-xp">+<span id="summary-xp">0</span> XP earned</div>
+        <div class="summary-actions">
+          <button class="btn btn-ghost" id="summary-retry">Try Again</button>
+          <button class="btn btn-primary" data-nav="dashboard">Back to Dashboard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LEARNING CENTER ===================== -->
+    <section class="view" id="view-learning">
+      <div class="page-head">
+        <div class="eyebrow">LEARNING CENTER</div>
+        <h2>Study before you simulate</h2>
+        <p class="page-sub">Definitions, real-world patterns, red flags and prevention habits for every attack type —
+          with a quick topic quiz to check retention.</p>
+      </div>
+      <div class="learning-layout">
+        <nav class="learning-nav" id="learning-nav"></nav>
+        <div class="learning-content" id="learning-content"></div>
+      </div>
+    </section>
+
+    <!-- ===================== GLOBAL QUIZ INTRO ===================== -->
+    <section class="view" id="view-quiz-intro">
+      <div class="quiz-intro-card">
+        <div class="eyebrow">FINAL ASSESSMENT</div>
+        <h2>The PERIMETER Certification Quiz</h2>
+        <p>30 randomized multiple-choice questions covering every attack pattern in this simulator. Instant feedback
+          after each answer, a final grade, and a certificate-style completion screen.</p>
+        <ul class="quiz-rules">
+          <li>30 questions, shuffled each attempt</li>
+          <li>4 options per question, single correct answer</li>
+          <li>Immediate right/wrong feedback with explanation</li>
+          <li>Final percentage &amp; letter grade (A+ to D)</li>
+        </ul>
+        <button class="btn btn-primary btn-lg" id="quiz-start-btn">Begin Assessment</button>
+      </div>
+    </section>
+
+    <!-- ===================== GLOBAL QUIZ PLAYER ===================== -->
+    <section class="view" id="view-quiz">
+      <div class="sim-shell">
+        <div class="sim-header">
+          <div class="sim-title-wrap">
+            <span class="sim-icon">🎓</span>
+            <div>
+              <h2>Final Assessment</h2>
+              <div class="sim-tags"><span class="tag" id="quiz-qnum">Question 1 / 30</span></div>
+            </div>
+          </div>
+          <div class="sim-score">Score <strong id="quiz-score">0</strong>/<span id="quiz-answered">0</span></div>
+        </div>
+        <div class="progress-track sim-progress">
+          <div class="progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <div class="sim-body" id="quiz-body"></div>
+        <div class="sim-footer">
+          <div class="tip-box" id="quiz-tip" hidden></div>
+          <div class="sim-actions">
+            <button class="btn btn-primary" id="quiz-next" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CERTIFICATE / RESULTS ===================== -->
+    <section class="view" id="view-cert">
+      <div class="cert-wrap">
+        <div class="certificate" id="certificate">
+          <div class="cert-border">
+            <div class="cert-eyebrow">CERTIFICATE OF COMPLETION</div>
+            <div class="cert-brand">PERIMETER</div>
+            <div class="cert-sub">Social Engineering Awareness Simulator</div>
+            <div class="cert-grade" id="cert-grade">A+</div>
+            <div class="cert-score" id="cert-score">30/30 correct — 100%</div>
+            <div class="cert-name">This certifies completion of the Final Assessment</div>
+            <div class="cert-date" id="cert-date"></div>
+          </div>
+        </div>
+        <div class="summary-actions">
+          <button class="btn btn-ghost" id="cert-retry">Retake Assessment</button>
+          <button class="btn btn-primary" data-nav="analytics">View Analytics</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ANALYTICS ===================== -->
+    <section class="view" id="view-analytics">
+      <div class="page-head">
+        <div class="eyebrow">ANALYTICS DASHBOARD</div>
+        <h2>Your training performance</h2>
+        <p class="page-sub">Everything here is tracked locally in this session — nothing leaves your browser.</p>
+      </div>
+      <div class="analytics-grid">
+        <div class="stat-tile">
+          <div class="stat-tile-num" id="an-completed">0</div>
+          <div class="stat-tile-label">Simulations Completed</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-num" id="an-accuracy">0%</div>
+          <div class="stat-tile-label">Overall Accuracy</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-num" id="an-wrong">0</div>
+          <div class="stat-tile-label">Wrong Answers</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-num" id="an-xp">0</div>
+          <div class="stat-tile-label">Total XP</div>
+        </div>
+      </div>
+      <div class="analytics-row">
+        <div class="chart-card">
+          <h3>Accuracy over time</h3>
+          <canvas id="chart-progress" width="600" height="240"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Weak areas</h3>
+          <div id="weak-areas-list" class="weak-list"></div>
+        </div>
+      </div>
+      <div class="badge-section">
+        <h3>Achievement Badges</h3>
+        <div class="badge-grid" id="badge-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== SETTINGS ===================== -->
+    <section class="view" id="view-settings">
+      <div class="page-head">
+        <div class="eyebrow">SETTINGS</div>
+        <h2>Tune your experience</h2>
+      </div>
+      <div class="settings-list">
+        <div class="settings-row">
+          <div>
+            <h4>Appearance</h4>
+            <p>Switch between dark and light interface themes.</p>
+          </div>
+          <button class="toggle" id="toggle-theme" data-on="true"><span class="toggle-knob"></span></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <h4>Sound effects</h4>
+            <p>Play subtle audio feedback for correct/incorrect answers.</p>
+          </div>
+          <button class="toggle" id="toggle-sound" data-on="true"><span class="toggle-knob"></span></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <h4>Animations</h4>
+            <p>Enable ambient background motion and transition effects.</p>
+          </div>
+          <button class="toggle" id="toggle-anim" data-on="true"><span class="toggle-knob"></span></button>
+        </div>
+        <div class="settings-row settings-danger">
+          <div>
+            <h4>Reset progress</h4>
+            <p>Clears XP, badges, scores and analytics for this session.</p>
+          </div>
+          <button class="btn btn-danger" id="reset-progress">Reset Everything</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
